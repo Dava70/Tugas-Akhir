@@ -1,21 +1,22 @@
 import cv2
+import numpy as np
 
-# Membaca gambar
-image = cv2.imread('lutfi.jpg')
+#membaca gambar
+image = cv2.imread('pertemuan4 modul3/naruto.jpg')
 
-# Mendapatkan dimensi gambar
-(h, w) = image.shape[:2]
+#mendefinisikan empat titik sudut citra asli
+points1 = np.float32([[56, 65], [368, 52], [28, 387], [389, 390]])
 
-# Menentukan pusat gambar
-center = (w // 2, h // 2)
+#mendefinisikan empat titik sudut baru
+points1 = np.float32([[0, 0], [300, 0], [0, 300], [300, 300]])
 
-# Menentukan matriks rotasi
-M = cv2.getRotationMatrix2D(center, 45, 1.0)
+#mendapatkan matriks transformasi perspektif
+M_perspective = cv2.getPerspectiveTransform(points1, points1)
 
-# Melakukan rotasi
-rotated_image = cv2.warpAffine(image, M, (w, h))
+#melakukan transformasi perspektif
+perspective_transformed_image = cv2.warpPerspective(image, M_perspective, (300, 300))
 
-# Menampilkan hasil
-cv2.imshow('Rotated Image', rotated_image)
+#menampilkan hasil 
+cv2.imshow('Perspective Transformed Image', perspective_transformed_image)
 cv2.waitKey(0)
-cv2.destroyAllWindows()
+cv2.destroyAllWindows
