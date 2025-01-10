@@ -1,19 +1,18 @@
 import cv2
 import numpy as np
+from matplotlib import pyplot as plt
 
-# Load image
-image = cv2.imread('pertemuan4 modul2/naruto.jpg')  
+# Membaca gambar
+image = cv2.imread('sasuke.jpg', cv2.IMREAD_GRAYSCALE)
 
-# Get image dimensions
-H, W = image.shape[:2]  
-
-# Define affine transformation matrix
-M_affine = np.float32([[1, 0, 50], [0, 1, 30]])  
-
-# Apply affine transformation with the correct dsize argument
-affine_transformed_image = cv2.warpAffine(image, M_affine, (W, H))  
-
-# Display the result
-cv2.imshow('Affine Transformed Image', affine_transformed_image)
+# Menampilkan gambar
+cv2.imshow('Original Image', image)
 cv2.waitKey(0)
+
+# Menampilkan histogram
+plt.hist(image.ravel(), 256, [0,256])
+plt.title('Histogram of Image')
+plt.show()
+
+# Menutup jendela OpenCV
 cv2.destroyAllWindows()
